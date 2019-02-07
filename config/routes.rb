@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :lessons
       resources :students 
       resources :units
+      resources :teachers
+      resources :lesson_comments
     end
   end
 end

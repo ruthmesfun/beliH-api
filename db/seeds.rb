@@ -11,10 +11,15 @@ Unit.destroy_all
 Lesson.destroy_all
 Student.destroy_all
 
+t1 = Teacher.create(name: 'Ruth')
+t2 = Teacher.create(name: 'Esther')
+
 cs = Course.create(title: "computer science",
-                    description: "computer science for kids")
+                    description: "computer science for kids", 
+                    teacher: t1)
 cs2 = Course.create(title: "JavaScript",
-                    description: "JavaScript for kids")                    
+                    description: "JavaScript for kids",
+                    teacher: t2)                    
 
 u1 = Unit.create(title: 'JavaScript 101',
                     description: "javascript for kids 101",
@@ -54,7 +59,7 @@ l4 = Lesson.create(title: 'Function',
                     description: 'The correct way to use function',
                     objective: 'You will learn function',
                     unit: u1, 
-                    video: 'https://www.youtube.com/watch?v=uiv3oLsHbaI')
+                    video: 'https://www.youtube.com/embed/0FTIvOI7Oyg')
 l5 = Lesson.create(title: 'Arrays',
                         description: 'The correct way to write Arrays',
                         objective: 'You will understand Arrays',
@@ -65,9 +70,13 @@ l6 = Lesson.create(title: 'Hashes',
                         description: 'The correct way to use Hashes',
                         objective: 'You will learn Hashes',
                         unit: u2, 
-                        video: 'https://www.youtube.com/watch?v=uiv3oLsHbaI')
+                        video: 'https://www.youtube.com/embed/0FTIvOI7Oyg')
 
-s = Student.create(name: 'Ruth', school:'Flation School', grade: '11')
+s = Student.create(name: 'Leanne', school:'Flation School', grade: '11')
+
+lc = LessonComment.create(student: s, teacher: t2, lesson: l5)
+
+
 
 StudentCourse.create(student: s, course: cs)
 StudentCourse.create(student: s, course: cs2)

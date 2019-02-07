@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_163727) do
+ActiveRecord::Schema.define(version: 2019_02_06_145353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(version: 2019_01_29_163727) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "teacher_id"
+    t.index ["teacher_id"], name: "index_courses_on_teacher_id"
+  end
+
+  create_table "lesson_comments", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "student_id"
+    t.bigint "lesson_id"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_lesson_comments_on_lesson_id"
+    t.index ["student_id"], name: "index_lesson_comments_on_student_id"
+    t.index ["teacher_id"], name: "index_lesson_comments_on_teacher_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -52,6 +66,12 @@ ActiveRecord::Schema.define(version: 2019_01_29_163727) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "teachers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "units", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -61,6 +81,9 @@ ActiveRecord::Schema.define(version: 2019_01_29_163727) do
     t.index ["course_id"], name: "index_units_on_course_id"
   end
 
+  add_foreign_key "lesson_comments", "lessons"
+  add_foreign_key "lesson_comments", "students"
+  add_foreign_key "lesson_comments", "teachers"
   add_foreign_key "lessons", "units"
   add_foreign_key "student_courses", "courses"
   add_foreign_key "student_courses", "students"
